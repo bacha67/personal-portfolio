@@ -7,9 +7,7 @@ portfolio/.kiro/
 
 portfolio/frontend_react/node_modules/
 portfolio/frontend_react/build/
-portfolio/backend-sanity/node_modules/
-portfolio/backend-sanity/.sanity/
-portfolio/backend-sanity/dist/
+portfolio/backend-telegram/node_modules/
 
 *.log
 

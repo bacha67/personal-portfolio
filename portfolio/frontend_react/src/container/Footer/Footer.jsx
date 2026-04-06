@@ -3,22 +3,60 @@ import React, { useState } from 'react';
 import { AppWrap, MotionWrap } from '../../wrapp';
 import './Footer.scss';
 
+const initialFormState = { name: '', email: '', message: '' };
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
 const Footer = () => {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState(initialFormState);
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   const { name, email, message } = formData;
 
   const handleChangeInput = (e) => {
     const { name: field, value } = e.target;
+    setSubmitError('');
     setFormData({ ...formData, [field]: value });
   };
 
-  const handleSubmit = () => {
-    const subject = encodeURIComponent(`Portfolio Contact from ${name}`);
-    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
-    window.location.href = `mailto:bachaeshetu@gmail.com?subject=${subject}&body=${body}`;
-    setIsFormSubmitted(true);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!name.trim() || !email.trim() || !message.trim()) {
+      setSubmitError('Please fill in your name, email, and message.');
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+      setSubmitError('');
+
+      const response = await fetch(`${API_URL}/send-message`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: name.trim(),
+          email: email.trim(),
+          message: message.trim(),
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send message');
+      }
+
+      setIsFormSubmitted(true);
+      setFormData(initialFormState);
+    } catch (error) {
+      setSubmitError(error.message || 'Something went wrong. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -59,7 +97,7 @@ const Footer = () => {
       </div>
 
       {!isFormSubmitted ? (
-        <div className="app__footer-form app__flex">
+        <form className="app__footer-form app__flex" onSubmit={handleSubmit}>
           <div className="app__flex">
             <input className="p-text" type="text" placeholder="Your Name" name="name" value={name} onChange={handleChangeInput} />
           </div>
@@ -75,11 +113,15 @@ const Footer = () => {
               onChange={handleChangeInput}
             />
           </div>
-          <button type="button" className="p-text" onClick={handleSubmit}>Send Message</button>
-        </div>
+          {submitError ? <p className="app__footer-message app__footer-message--error">{submitError}</p> : null}
+          <button type="submit" className="p-text" disabled={isLoading}>
+            {isLoading ? 'Sending...' : 'Send Message'}
+          </button>
+        </form>
       ) : (
         <div>
           <h3 className="head-text">Thanks for reaching out!</h3>
+          <p className="app__footer-message">Your message was sent successfully.</p>
         </div>
       )}
     </>

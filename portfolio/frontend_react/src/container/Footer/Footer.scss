@@ -122,11 +122,29 @@
       &:hover {
         background-color: #2430af;
       }
+
+      &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+      }
     }
   
     @media screen and (max-width: 768px) {
       width: 100%;
       margin: 1rem 0;
     }
+  }
+
+  .app__footer-message {
+    width: 100%;
+    margin-top: 0.25rem;
+    color: var(--secondary-color);
+    text-align: center;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .app__footer-message--error {
+    color: #c1121f;
   }
   
