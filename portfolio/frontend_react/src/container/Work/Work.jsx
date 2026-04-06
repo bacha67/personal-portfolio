@@ -1,126 +1,179 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { AiFillGithub } from 'react-icons/ai';
-import { motion } from 'framer-motion';
+import { FiArrowUpRight } from 'react-icons/fi';
+import { AnimatePresence, motion } from 'framer-motion';
 
 import { AppWrap, MotionWrap } from '../../wrapp';
 import './Work.scss';
 
 const allWorks = [
   {
+    title: 'Classroom Management System',
+    description: 'Full-stack PERN CRUD platform with authentication and role-based access control for managing classrooms and users.',
+    techs: ['React', 'Node.js', 'Express', 'PostgreSQL (Neon)', 'JWT'],
+    tags: ['Full Stack'],
+    liveLink: 'https://classroom-frontend-sable-kappa.vercel.app/',
+    codeLink: 'https://github.com/bacha67',
+    accent: 'linear-gradient(135deg, #0f172a 0%, #1d4ed8 58%, #38bdf8 100%)',
+    eyebrow: 'Production-focused admin workflow',
+  },
+  {
     title: 'Smart Attendance System',
-    description: 'A machine learning-based attendance system using face recognition to automatically identify and mark student attendance.',
-    techs: 'Python · OpenCV · Flask · ML',
-    tags: ['ML', 'AI', 'Computer Vision'],
+    description: 'Face-recognition based attendance system using computer vision for automated student check-in.',
+    techs: ['Python', 'OpenCV', 'Flask', 'Face Recognition'],
+    tags: ['ML'],
+    liveLink: '',
     codeLink: 'https://github.com/bacha67/Smart-Attendance-updated.git',
-    bgColor: '#1a1a2e',
+    accent: 'linear-gradient(135deg, #111827 0%, #1f2937 42%, #7c3aed 100%)',
+    eyebrow: 'Applied computer vision project',
   },
   {
     title: 'Handwritten Digit Recognition',
-    description: 'A machine learning model that recognizes handwritten digits using image processing and classification techniques.',
-    techs: 'Python · TensorFlow · NumPy',
-    tags: ['ML', 'AI'],
+    description: 'Machine learning model for handwritten digit classification using image preprocessing and neural network pipeline.',
+    techs: ['Python', 'TensorFlow', 'NumPy', 'Image Processing'],
+    tags: ['ML'],
+    liveLink: '',
     codeLink: 'https://github.com/bacha67/Hand_written_digit_recognition.git',
-    bgColor: '#313bac',
+    accent: 'linear-gradient(135deg, #1e1b4b 0%, #312e81 48%, #22c55e 100%)',
+    eyebrow: 'Model training and inference',
   },
 ];
 
-const filterTags = ['All', 'ML', 'AI', 'Computer Vision'];
+const filterTags = ['All', 'Full Stack', 'ML'];
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.08,
+    },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 32 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.55,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
+
+const gridTransition = {
+  duration: 0.32,
+  ease: [0.22, 1, 0.36, 1],
+};
 
 const Work = () => {
   const [activeFilter, setActiveFilter] = useState('All');
-  const [animateCard, setAnimateCard] = useState({ y: 0, opacity: 1 });
 
-  const filterWork = activeFilter === 'All'
-    ? allWorks
-    : allWorks.filter((work) => work.tags.includes(activeFilter));
-
-  const handleWorkFilter = (item) => {
-    setActiveFilter(item);
-    setAnimateCard([{ y: 100, opacity: 0 }]);
-    setTimeout(() => setAnimateCard([{ y: 0, opacity: 1 }]), 500);
-  };
+  const filteredWorks = useMemo(() => (
+    activeFilter === 'All'
+      ? allWorks
+      : allWorks.filter((work) => work.tags.includes(activeFilter))
+  ), [activeFilter]);
 
   return (
     <>
-      <h2 className="head-text">My <span>Projects</span></h2>
+      <div className="app__work-shell">
+        <div className="app__work-heading">
+          <h2 className="head-text">
+            Selected <span>Projects</span>
+          </h2>
+          <p className="p-text">
+            A focused showcase of full stack and AI projects built to solve practical problems
+            with clear UX, real functionality, and production-oriented thinking.
+          </p>
+        </div>
 
-      <div className="app__work-filter">
-        {filterTags.map((item, index) => (
-          <div
-            key={index}
-            onClick={() => handleWorkFilter(item)}
-            className={`app__work-filter-item app__flex p-text ${activeFilter === item ? 'item-active' : ''}`}
-          >
-            {item}
-          </div>
-        ))}
+        <div className="app__work-filter" role="tablist" aria-label="Project filters">
+          {filterTags.map((item) => (
+            <button
+              type="button"
+              key={item}
+              onClick={() => setActiveFilter(item)}
+              className={`app__work-filter-item ${activeFilter === item ? 'item-active' : ''}`}
+            >
+              {item}
+            </button>
+          ))}
+        </div>
       </div>
 
       <motion.div
-        animate={animateCard}
-        transition={{ duration: 0.5, delayChildren: 0.5 }}
         className="app__work-portfolio"
+        layout
       >
-        {filterWork.map((work, index) => (
-          <div className="app__work-item app__flex" key={index}>
-            <div className="app__work-img app__flex">
-              <div style={{
-                width: '100%',
-                height: '100%',
-                backgroundColor: work.bgColor,
-                borderRadius: '0.5rem',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-                <p style={{ color: '#fff', fontWeight: 600, fontSize: '1rem', padding: '1rem', textAlign: 'center' }}>
-                  {work.title}
-                </p>
+        <AnimatePresence mode="popLayout">
+          {filteredWorks.map((work) => (
+            <motion.article
+              className="app__work-item"
+              key={work.title}
+              layout
+              variants={cardVariants}
+              initial="hidden"
+              animate="show"
+              exit={{ opacity: 0, y: 22, transition: { duration: 0.18 } }}
+              whileHover={{ y: -10, rotateX: 1.6, rotateY: -1.6 }}
+              transition={gridTransition}
+            >
+              <div className="app__work-preview" style={{ background: work.accent }}>
+                <div className="app__work-preview-grid" />
+                <div className="app__work-preview-content">
+                  <p>{work.eyebrow}</p>
+                  <h3>{work.title}</h3>
+                </div>
               </div>
-              <motion.div
-                whileHover={{ opacity: [0, 1] }}
-                transition={{ duration: 0.25, ease: 'easeInOut' }}
-                className="app__work-hover app__flex"
-              >
-                <a href={work.codeLink} target="_blank" rel="noreferrer">
-                  <motion.div whileHover={{ scale: [1, 0.9] }} transition={{ duration: 0.25 }} className="app__flex">
-                    <AiFillGithub />
-                  </motion.div>
-                </a>
-              </motion.div>
-            </div>
 
-            <div className="app__work-content app__flex">
-              <h4 className="bold-text">{work.title}</h4>
-              <p className="p-text" style={{ marginTop: 10 }}>{work.description}</p>
-              <p className="p-text" style={{ marginTop: 6, color: '#6b7688', fontSize: '0.85rem' }}>{work.techs}</p>
-              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: 10 }}>
-                {work.tags.map((tag) => (
-                  <div className="app__work-tag app__flex" key={tag}>
-                    <p className="p-text">{tag}</p>
-                  </div>
-                ))}
+              <div className="app__work-content">
+                <div className="app__work-meta">
+                  {work.tags.map((tag) => (
+                    <span className="app__work-tag" key={tag}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <h3 className="app__work-title">{work.title}</h3>
+                <p className="app__work-description">{work.description}</p>
+
+                <div className="app__work-stack">
+                  {work.techs.map((tech) => (
+                    <span key={tech}>{tech}</span>
+                  ))}
+                </div>
+
+                <div className="app__work-actions">
+                  {work.liveLink ? (
+                    <a
+                      href={work.liveLink}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="app__work-btn app__work-btn--primary"
+                    >
+                      <FiArrowUpRight />
+                      Live Demo
+                    </a>
+                  ) : null}
+                  <a
+                    href={work.codeLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={`app__work-btn ${work.liveLink ? 'app__work-btn--secondary' : 'app__work-btn--primary'}`}
+                  >
+                    <AiFillGithub />
+                    GitHub
+                  </a>
+                </div>
               </div>
-              <a
-                href={work.codeLink}
-                target="_blank"
-                rel="noreferrer"
-                style={{
-                  marginTop: 14,
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.4rem',
-                  color: '#313bac',
-                  fontWeight: 600,
-                  fontSize: '0.9rem',
-                  textDecoration: 'none',
-                }}
-              >
-                <AiFillGithub /> View Code
-              </a>
-            </div>
-          </div>
-        ))}
+            </motion.article>
+          ))}
+        </AnimatePresence>
       </motion.div>
     </>
   );
