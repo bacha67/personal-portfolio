@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useCallback } from 'react';
 import { FiZap } from 'react-icons/fi';
 import { AppWrap } from '../../wrapp';
 import { images } from '../../constants';
@@ -12,11 +12,28 @@ const stats = [
 
 const techPills = ['React', 'Node.js', 'Python', 'OpenCV', 'TensorFlow'];
 
-const Header = () => (
-  <section className="app__header-hero">
+const Header = () => {
+  const sectionRef = useRef(null);
+
+  const handleMouseMove = useCallback((e) => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const { left, top, width, height } = el.getBoundingClientRect();
+    el.style.setProperty('--spot-x', `${((e.clientX - left) / width) * 100}%`);
+    el.style.setProperty('--spot-y', `${((e.clientY - top) / height) * 100}%`);
+  }, []);
+
+  return (
+    <section
+      className="app__header-hero"
+      ref={sectionRef}
+      onMouseMove={handleMouseMove}
+    >
     {/* Decorative background orbs */}
     <div className="hero-orb hero-orb--purple" aria-hidden="true" />
     <div className="hero-orb hero-orb--cyan"   aria-hidden="true" />
+    {/* Cursor spotlight */}
+    <div className="hero-spotlight" aria-hidden="true" />
 
     {/* ── LEFT COLUMN ── */}
     <div className="app__header-left">
@@ -90,6 +107,7 @@ const Header = () => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 export default AppWrap(Header, 'home');

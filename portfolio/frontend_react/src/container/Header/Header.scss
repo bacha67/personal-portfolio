@@ -112,8 +112,26 @@ $text-muted:    rgba(255, 255, 255, 0.55);
 
   @media screen and (max-width: 992px) {
     grid-template-columns: 1fr;
-    gap: 48px;
+    gap: 40px;
   }
+
+  @media screen and (max-width: 480px) {
+    gap: 32px;
+    padding-top: 24px;
+  }
+}
+
+// Cursor spotlight
+.hero-spotlight {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    700px circle at var(--spot-x, 25%) var(--spot-y, 45%),
+    rgba(124, 110, 245, 0.09),
+    transparent 40%
+  );
+  pointer-events: none;
+  z-index: 0;
 }
 
 // ─── Left column ──────────────────────────────
