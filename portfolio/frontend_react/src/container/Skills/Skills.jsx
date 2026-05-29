@@ -1,98 +1,112 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-
+import { 
+  SiReact, 
+  SiJavascript, 
+  SiTypescript, 
+  SiNodedotjs, 
+  SiPython, 
+  SiOpencv, 
+  SiTensorflow, 
+  SiPostman,
+  SiPostgresql
+} from 'react-icons/si';
+import { FaJava } from 'react-icons/fa';
 import { AppWrap, MotionWrap } from '../../wrapp';
-import { images } from '../../constants';
 import './Skills.scss';
 
 const skillCategories = [
   {
-    category: 'Full Stack Development',
+    category: 'FRONTEND',
     skills: [
-      { name: 'HTML', icon: images.html, bgColor: '#edf2f8' },
-      { name: 'CSS', icon: images.css, bgColor: '#edf2f8' },
-      { name: 'JavaScript', icon: images.javascript, bgColor: '#edf2f8' },
-      { name: 'React', icon: images.react, bgColor: '#edf2f8' },
-      { name: 'Node.js', icon: images.node, bgColor: '#edf2f8' },
-      { name: 'TypeScript', icon: images.typescript, bgColor: '#edf2f8' },
-      { name: 'Git', icon: images.git, bgColor: '#edf2f8' },
+      { name: 'React', Icon: SiReact, color: '#61dafb' },
+      { name: 'JavaScript', Icon: SiJavascript, color: '#f7df1e' },
+      { name: 'TypeScript', Icon: SiTypescript, color: '#3178c6' },
     ],
   },
   {
-    category: 'Machine Learning',
+    category: 'BACKEND',
     skills: [
-      { name: 'Python', icon: images.python, bgColor: '#edf2f8' },
-      { name: 'GraphQL', icon: images.graphql, bgColor: '#edf2f8' },
+      { name: 'Node.js', Icon: SiNodedotjs, color: '#339933' },
+      { name: 'Java', Icon: FaJava, color: '#f89820' },
+      { name: 'PostgreSQL', Icon: SiPostgresql, color: '#336791' },
+      { name: 'REST APIs', Icon: SiPostman, color: '#009688' },
     ],
   },
   {
-    category: 'Networking',
+    category: 'AI / MACHINE LEARNING',
     skills: [
-      { name: 'API Design', icon: images.api, bgColor: '#edf2f8' },
-      { name: 'C++', icon: images.cpp, bgColor: '#edf2f8' },
+      { name: 'Python', Icon: SiPython, color: '#3776ab' },
+      { name: 'OpenCV', Icon: SiOpencv, color: '#5c3ee8' },
+      { name: 'TensorFlow', Icon: SiTensorflow, color: '#ff6f00' },
     ],
   },
 ];
 
-const Skills = () => (
-  <>
-    <h2 className="head-text">Skills & <span>Background</span></h2>
+const experiences = [
+  {
+    title: 'Network Configuration Assistant',
+    subtitle: 'Ethio Telecom · Internship',
+    body: 'LAN setup, routing, switching, and IP subnetting in a live enterprise network environment.',
+  },
+  {
+    title: 'BSc Computer Science',
+    subtitle: 'Madda Walabu University · 2026',
+    body: 'Capstone: Smart Attendance System using facial recognition and computer vision.',
+  },
+];
 
-    <div className="app__skills-container">
-      <div className="app__skills-list" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '2rem' }}>
-        {skillCategories.map((group) => (
-          <div key={group.category}>
-            <p className="bold-text" style={{ marginBottom: '1rem', color: '#313bac' }}>{group.category}</p>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
-              {group.skills.map((skill) => (
-                <motion.div
-                  whileInView={{ opacity: [0, 1] }}
-                  transition={{ duration: 0.5 }}
-                  className="app__skills-item app__flex"
-                  key={skill.name}
-                >
-                  <div className="app__flex" style={{ backgroundColor: skill.bgColor }}>
-                    <img src={skill.icon} alt={skill.name} />
-                  </div>
-                  <p className="p-text">{skill.name}</p>
-                </motion.div>
-              ))}
+const Skills = () => {
+  return (
+    <section className="app__skills-section">
+      <div className="app__skills-kicker">TECHNICAL SKILLS</div>
+      <h2 className="app__skills-heading head-text">
+        Tools I Build <span className="purple-text">With</span>
+      </h2>
+
+      <div className="app__skills-layout">
+        <div className="app__skills-left">
+          {skillCategories.map((cat) => (
+            <div className="skill-group" key={cat.category}>
+              <h3 className="skill-group-title">{cat.category}</h3>
+              <div className="skill-pills">
+                {cat.skills.map((skill) => {
+                  const { Icon } = skill;
+                  return (
+                    <div className="skill-pill" key={skill.name}>
+                      <div 
+                        className="skill-icon-square" 
+                        style={{ backgroundColor: `${skill.color}26` }}
+                      >
+                        <Icon style={{ color: skill.color }} />
+                      </div>
+                      <span className="skill-name">{skill.name}</span>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
+          ))}
+        </div>
+
+        <div className="app__skills-right">
+          <h3 className="experience-heading">EXPERIENCE</h3>
+          <div className="experience-timeline">
+            {experiences.map((exp) => (
+              <div className="experience-card" key={exp.title}>
+                <h4 className="exp-title">{exp.title}</h4>
+                <div className="exp-subtitle">{exp.subtitle}</div>
+                <p className="exp-body">{exp.body}</p>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
-
-      <div className="app__skills-exp">
-        <motion.div className="app__skills-exp-item">
-          <div className="app__skills-exp-year">
-            <p className="bold-text">2026</p>
-          </div>
-          <div className="app__skills-exp-works">
-            <div className="app__skills-exp-work">
-              <h4 className="bold-text">CS Graduate</h4>
-              <p className="p-text">Ethiopia</p>
-            </div>
-          </div>
-        </motion.div>
-
-        <motion.div className="app__skills-exp-item">
-          <div className="app__skills-exp-year">
-            <p className="bold-text">2026–--</p>
-          </div>
-          <div className="app__skills-exp-works">
-            <div className="app__skills-exp-work">
-              <h4 className="bold-text">Self-learning AI & ML</h4>
-              <p className="p-text">Personal Projects</p>
-            </div>
-          </div>
-        </motion.div>
-      </div>
-    </div>
-  </>
-);
+    </section>
+  );
+};
 
 export default AppWrap(
   MotionWrap(Skills, 'app__skills'),
   'skills',
-  'app__whitebg',
+  ''
 );

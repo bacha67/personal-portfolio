@@ -1,58 +1,90 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-
 import { AppWrap, MotionWrap } from '../../wrapp';
-import { images } from '../../constants';
+import {
+  FaCode,
+  FaNetworkWired,
+  FaBrain,
+  FaVideo,
+} from 'react-icons/fa';
 import './About.scss';
 
-const abouts = [
+const highlights = [
   {
-    title: 'Full Stack Development',
-    description: "I build web apps using React, Node.js, and modern tools. I enjoy turning ideas into working products that are clean and easy to use.",
-    imgUrl: images.about01,
+    Icon: FaCode,
+    title: 'Full-Stack Development',
+    desc: 'Building end-to-end web apps with React, Node.js, and PostgreSQL.',
+    color: '#7c6ef5',
   },
   {
+    Icon: FaNetworkWired,
+    title: 'Networking & Support',
+    desc: 'Hands-on internship configuring enterprise LAN, routing, and IP subnetting.',
+    color: '#06b6d4',
+  },
+  {
+    Icon: FaBrain,
     title: 'Machine Learning',
-    description: "I'm learning AI and ML concepts, working with Python and data tools to build practical models and understand how intelligent systems work.",
-    imgUrl: images.about02,
+    desc: 'Applying computer vision and neural networks to solve real-world problems.',
+    color: '#f97316',
   },
   {
-    title: 'Networking',
-    description: "I have a solid foundation in computer networks, protocols, and system-level thinking from my CS degree.",
-    imgUrl: images.about03,
+    Icon: FaVideo,
+    title: 'Content & Digital Marketing',
+    desc: 'Currently creating content and exploring modern digital marketing strategies.',
+    color: '#4ade80',
   },
 ];
 
-const About = () => (
-  <>
-    <h2 className="head-text">
-      CS Graduate from <span>Ethiopia</span>,<br />building things with <span>Code & AI</span>
-    </h2>
+const About = () => {
+  return (
+    <section className="app__about-section">
+      <div className="app__about-kicker">ABOUT ME</div>
+      <h2 className="app__about-heading head-text">
+        Who I <span className="purple-text">Am</span>
+      </h2>
 
-    <p className="p-text" style={{ textAlign: 'center', maxWidth: 700, margin: '1rem auto 2rem' }}>
-      I am Bacha Eshetu, a Computer Science graduate passionate about AI, Machine Learning, and building practical tech solutions.
-    </p>
+      <div className="app__about-layout">
+        {/* LEFT – Bio text */}
+        <div className="app__about-left">
+          <p className="app__about-bio">
+            Computer Science graduate passionate about technology and
+            problem-solving. I have experience in full-stack development,
+            networking, and machine learning projects, along with hands-on
+            internship and technical support experience.
+          </p>
+          <p className="app__about-bio">
+            Currently creating content and learning digital marketing, content
+            creation, and modern technology trends while building my professional
+            career and growing through continuous learning and creativity.
+          </p>
 
-    <div className="app__profiles">
-      {abouts.map((about, index) => (
-        <motion.div
-          whileInView={{ opacity: 1 }}
-          whileHover={{ scale: 1.05 }}
-          transition={{ duration: 0.5, type: 'tween' }}
-          className="app__profile-item"
-          key={about.title + index}
-        >
-          <img src={about.imgUrl} alt={about.title} />
-          <h2 className="bold-text" style={{ marginTop: 20 }}>{about.title}</h2>
-          <p className="p-text" style={{ marginTop: 10 }}>{about.description}</p>
-        </motion.div>
-      ))}
-    </div>
-  </>
-);
+          <div className="app__about-badges">
+            <span className="about-badge">🎓 BSc Computer Science</span>
+            <span className="about-badge">🇪🇹 Based in Ethiopia</span>
+            <span className="about-badge">🔍 Open to Opportunities</span>
+          </div>
+        </div>
 
-export default AppWrap(
-  MotionWrap(About, 'app__about'),
-  'about',
-  'app__whitebg',
-);
+        {/* RIGHT – Highlight cards */}
+        <div className="app__about-right">
+          {highlights.map(({ Icon, title, desc, color }) => (
+            <div className="about-highlight-card" key={title}>
+              <div
+                className="about-highlight-icon"
+                style={{ backgroundColor: `${color}1a`, color }}
+              >
+                <Icon />
+              </div>
+              <div className="about-highlight-body">
+                <h4 className="about-highlight-title">{title}</h4>
+                <p className="about-highlight-desc">{desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default AppWrap(MotionWrap(About, 'app__about'), 'about', '');

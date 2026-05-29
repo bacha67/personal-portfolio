@@ -1,174 +1,167 @@
 .app__navbar {
-    width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 56px;
+  background: rgba(10, 10, 15, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.07);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 48px;
+  z-index: 1000;
+
+  @media screen and (max-width: 768px) {
+    padding: 0 24px;
+  }
+}
+
+.app__navbar-logo {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
   
+  a {
+    color: #ffffff;
+    text-decoration: none;
+    
+    span {
+      color: #7c6ef5;
+    }
+  }
+}
+
+.app__navbar-links {
+  display: flex;
+  list-style: none;
+  gap: 32px;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+
+  li {
+    a {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.55);
+      text-decoration: none;
+      transition: color 0.2s ease-in-out;
+
+      &:hover {
+        color: #ffffff;
+      }
+    }
+  }
+}
+
+.app__navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.app__navbar-hire {
+  background-color: #7c6ef5;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover {
+    background-color: #a89cf5;
+  }
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+}
+
+.app__navbar-menu {
+  display: none;
+  cursor: pointer;
+  
+  svg {
+    font-size: 24px;
+    color: #ffffff;
+  }
+
+  @media screen and (max-width: 768px) {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.app__navbar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1001;
+}
+
+.app__navbar-mobile {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 280px;
+  height: 100vh;
+  background: #13131e;
+  border-left: 0.5px solid rgba(255, 255, 255, 0.08);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  z-index: 1002;
+
+  .app__navbar-mobile-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-  
-    padding: 1rem 2rem;
-    background: rgba(255, 255, 255, 0.25);
-    // box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    position: fixed;
-    z-index: 2;
-  }
-  
-  .app__navbar-logo {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-  
-    img {
-      width: 90px;
-      height: 20px;
-  
-      @media screen and (min-width: 2000px) {
-        width: 180px;
-        height: 40px;
-      }
-    }
-  }
-  
-  .app__navbar-links {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  
-    list-style: none;
-  
-    li {
-      margin: 0 1rem;
-      cursor: pointer;
-  
-      flex-direction: column;
-  
-      div {
-        width: 5px;
-        height: 5px;
-        background: transparent;
-        border-radius: 50%;
-  
-        margin-bottom: 5px;
-      }
-  
-      a {
-        color: var(--gray-color);
-        text-decoration: none;
-        flex-direction: column;
-  
-        text-transform: uppercase;
-        font-weight: 500;
-  
-        transition: all 0.3s ease-in-out;
-  
-        &:hover {
-          color: var(--secondary-color);
-        }
-      }
-  
-      &:hover {
-        div {
-          background: var(--secondary-color);
-        }
-      }
-    }
-  
-    @media screen and (max-width: 900px) {
-      display: none;
-    }
-  }
-  
-  .app__navbar-menu {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    position: relative;
-  
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--secondary-color);
-  
-  
+
     svg {
-      width: 70%;
-      height: 70%;
-      color: var(--white-color);
-    }
-  
-    div {
-      position: fixed;
-      top: 0;
-      bottom: 0;
-      right: 0;
-      z-index: 5;
-  
-      padding: 1rem;
-  
-      width: 80%;
-      height: 100vh;
-      
-      display: flex;
-      justify-content: flex-end;
-      align-items: flex-end;
-      flex-direction: column;
-      
-      background: url('../../assets/bgWhite.png');
-      background-color: var(--white-color);
-      background-size: cover;
-      background-repeat: repeat;
-  
-      /* top box shadow */
-      box-shadow: 0px 0px 20px rgba(168, 168, 168, 0.15);
-  
-      svg {
-        width: 35px;
-        height: 35px;
-        color: var(--secondary-color);
-        margin: 0.5rem 1rem;
-      }
-  
-      ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        width: 100%;
-  
-        display: flex;
-        justify-content: flex-start;
-        align-items: flex-start;
-        flex-direction: column;
-  
-        li {
-          margin: 1rem;
-  
-          a {
-            color: var(--gray-color);
-            text-decoration: none;
-            font-size: 1rem;
-            text-transform: uppercase;
-            font-weight: 500;
-  
-            transition: all 0.3s ease-in-out;
-  
-            &:hover {
-              color: var(--secondary-color);
-            }
-          }
-        }
-      }
-  
-      @media screen and (min-width: 900px) {
-        display: none;
-      }
-    }
-  
-    @media screen and (min-width: 900px) {
-      display: none;
+      font-size: 24px;
+      color: #ffffff;
+      cursor: pointer;
     }
   }
-  
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    list-style: none;
+
+    li {
+      a {
+        font-size: 16px;
+        color: rgba(255, 255, 255, 0.55);
+        text-decoration: none;
+
+        &:hover {
+          color: #ffffff;
+        }
+      }
+    }
+  }
+}
+
+.app__navbar-hire-mobile {
+  background-color: #7c6ef5;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  text-align: center;
+  margin-top: auto;
+}
