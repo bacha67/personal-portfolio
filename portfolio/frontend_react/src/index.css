@@ -2,7 +2,9 @@
 
 :root {
   --font-base: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --card-radius: 16px;
 
+  /* Default Dark Theme variables */
   --bg-color: #0a0a0f;
   --card-surface: #13131e;
   --primary-accent: #7c6ef5;
@@ -12,7 +14,45 @@
   --text-muted: rgba(255, 255, 255, 0.55);
   --text-subtle: rgba(255, 255, 255, 0.4);
   --border-color: rgba(255, 255, 255, 0.08);
-  --card-radius: 16px;
+
+  --glass-bg: rgba(255, 255, 255, 0.04);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --input-placeholder: rgba(255, 255, 255, 0.35);
+  --social-icon-bg: rgba(255, 255, 255, 0.04);
+  --social-icon-border: rgba(255, 255, 255, 0.08);
+  --social-icon-color: rgba(255, 255, 255, 0.5);
+  --navbar-bg: rgba(10, 10, 15, 0.95);
+  --navbar-border: rgba(255, 255, 255, 0.07);
+  --navbar-link-color: rgba(255, 255, 255, 0.55);
+  --navbar-link-hover: #ffffff;
+  --mobile-menu-bg: #13131e;
+  --profile-card-bg: rgba(19, 19, 30, 0.65);
+}
+
+body.light-theme {
+  /* Light Theme variables */
+  --bg-color: #f6f8fc;
+  --card-surface: #ffffff;
+  --primary-accent: #5f4feb;
+  --accent-light: #7c6ef5;
+  --success-color: #22c55e;
+  --text-primary: #0f172a;
+  --text-muted: rgba(15, 23, 42, 0.6);
+  --text-subtle: rgba(15, 23, 42, 0.4);
+  --border-color: rgba(15, 23, 42, 0.08);
+
+  --glass-bg: rgba(15, 23, 42, 0.03);
+  --glass-border: rgba(15, 23, 42, 0.06);
+  --input-placeholder: rgba(15, 23, 42, 0.4);
+  --social-icon-bg: rgba(15, 23, 42, 0.03);
+  --social-icon-border: rgba(15, 23, 42, 0.08);
+  --social-icon-color: rgba(15, 23, 42, 0.5);
+  --navbar-bg: rgba(246, 248, 252, 0.95);
+  --navbar-border: rgba(15, 23, 42, 0.07);
+  --navbar-link-color: rgba(15, 23, 42, 0.6);
+  --navbar-link-hover: #0f172a;
+  --mobile-menu-bg: #ffffff;
+  --profile-card-bg: rgba(255, 255, 255, 0.75);
 }
 
 * {
@@ -29,4 +69,5 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }

@@ -1,7 +1,11 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+`import React from 'react';
 import { AppWrap, MotionWrap } from '../../wrapp';
-import { FaCode, FaNetworkWired, FaBrain, FaVideo } from 'react-icons/fa';
+import {
+  FaCode,
+  FaNetworkWired,
+  FaBrain,
+  FaVideo,
+} from 'react-icons/fa';
 import './About.scss';
 
 const highlights = [
@@ -31,85 +35,56 @@ const highlights = [
   },
 ];
 
-// ── Animation variants ────────────────────────
-const leftVars = {
-  hidden:  { opacity: 0, x: -40 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.65, ease: 'easeOut' } },
-};
+const About = () => {
+  return (
+    <section className="app__about-section">
+      <div className="app__about-kicker">ABOUT ME</div>
+      <h2 className="app__about-heading head-text">
+        Who I <span className="purple-text">Am</span>
+      </h2>
 
-const rightVars = {
-  hidden:  {},
-  visible: { transition: { staggerChildren: 0.13, delayChildren: 0.1 } },
-};
+      <div className="app__about-layout">
+        {/* LEFT – Bio text */}
+        <div className="app__about-left">
+          <p className="app__about-bio">
+            Computer Science graduate passionate about technology and
+            problem-solving. I have experience in full-stack development,
+            networking, and machine learning projects, along with hands-on
+            internship and technical support experience.
+          </p>
+          <p className="app__about-bio">
+            Currently creating content and learning digital marketing, content
+            creation, and modern technology trends while building my professional
+            career and growing through continuous learning and creativity.
+          </p>
 
-const cardVars = {
-  hidden:  { opacity: 0, x: 50, scale: 0.95 },
-  visible: {
-    opacity: 1, x: 0, scale: 1,
-    transition: { duration: 0.48, ease: [0.25, 0.46, 0.45, 0.94] },
-  },
-};
-
-const About = () => (
-  <section className="app__about-section">
-    <div className="app__about-kicker">ABOUT ME</div>
-    <h2 className="app__about-heading head-text">
-      Who I <span className="purple-text">Am</span>
-    </h2>
-
-    <div className="app__about-layout">
-      {/* LEFT – Bio text */}
-      <motion.div
-        className="app__about-left"
-        variants={leftVars}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-      >
-        <p className="app__about-bio">
-          Computer Science graduate passionate about technology and
-          problem-solving. I have experience in full-stack development,
-          networking, and machine learning projects, along with hands-on
-          internship and technical support experience.
-        </p>
-        <p className="app__about-bio">
-          Currently creating content and learning digital marketing, content
-          creation, and modern technology trends while building my professional
-          career and growing through continuous learning and creativity.
-        </p>
-
-        <div className="app__about-badges">
-          <span className="about-badge">🎓 BSc Computer Science</span>
-          <span className="about-badge">🇪🇹 Based in Ethiopia</span>
-          <span className="about-badge">🔍 Open to Opportunities</span>
+          <div className="app__about-badges">
+            <span className="about-badge">🎓 BSc Computer Science</span>
+            <span className="about-badge">🇪🇹 Based in Ethiopia</span>
+            <span className="about-badge">🔍 Open to Opportunities</span>
+          </div>
         </div>
-      </motion.div>
 
-      {/* RIGHT – Highlight cards */}
-      <motion.div
-        className="app__about-right"
-        variants={rightVars}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-      >
-        {highlights.map(({ Icon, title, desc, color }) => (
-          <motion.div className="about-highlight-card" key={title} variants={cardVars}>
-            <div
-              className="about-highlight-icon"
-              style={{ backgroundColor: `${color}1a`, color }}
-            >
-              <Icon />
+        {/* RIGHT – Highlight cards */}
+        <div className="app__about-right">
+          {highlights.map(({ Icon, title, desc, color }, idx) => (
+            <div className="about-highlight-card" key={idx}>
+              <div
+                className="about-highlight-icon"
+                style={{ backgroundColor: `${ color } 1a`, color }}
+              >
+                <Icon />
+              </div>
+              <div className="about-highlight-body">
+                <h4 className="about-highlight-title">{title}</h4>
+                <p className="about-highlight-desc">{desc}</p>
+              </div>
             </div>
-            <div className="about-highlight-body">
-              <h4 className="about-highlight-title">{title}</h4>
-              <p className="about-highlight-desc">{desc}</p>
-            </div>
-          </motion.div>
-        ))}
-      </motion.div>
-    </div>
-  </section>
-);
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
 
 export default AppWrap(MotionWrap(About, 'app__about'), 'about', '');

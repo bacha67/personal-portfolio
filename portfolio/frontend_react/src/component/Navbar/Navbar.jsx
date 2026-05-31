@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { HiMenuAlt4, HiX } from 'react-icons/hi';
+import { HiMenuAlt4, HiX, HiSun, HiMoon } from 'react-icons/hi';
 import { motion, AnimatePresence } from 'framer-motion';
 import './Navbar.scss';
 
@@ -13,7 +13,7 @@ const navLabels = {
   contact: 'Contact',
 };
 
-const Navbar = () => {
+const Navbar = ({ theme, toggleTheme }) => {
   const [toggle, setToggle] = useState(false);
 
   return (
@@ -33,6 +33,21 @@ const Navbar = () => {
       </ul>
 
       <div className="app__navbar-right">
+        <button 
+          onClick={toggleTheme} 
+          className="app__theme-toggle" 
+          aria-label="Toggle Theme"
+        >
+          <motion.div
+            key={theme}
+            initial={{ rotate: -45, scale: 0.8, opacity: 0 }}
+            animate={{ rotate: 0, scale: 1, opacity: 1 }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
+            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+          >
+            {theme === 'dark' ? <HiSun /> : <HiMoon />}
+          </motion.div>
+        </button>
         <a href="#contact" className="app__navbar-hire">
           Hire Me
         </a>
@@ -58,7 +73,24 @@ const Navbar = () => {
                     <span>B</span>E.
                   </a>
                 </div>
-                <HiX onClick={() => setToggle(false)} />
+                <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                  <button 
+                    onClick={toggleTheme} 
+                    className="app__theme-toggle" 
+                    aria-label="Toggle Theme"
+                  >
+                    <motion.div
+                      key={theme}
+                      initial={{ rotate: -45, scale: 0.8, opacity: 0 }}
+                      animate={{ rotate: 0, scale: 1, opacity: 1 }}
+                      transition={{ duration: 0.25, ease: 'easeOut' }}
+                      style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                    >
+                      {theme === 'dark' ? <HiSun /> : <HiMoon />}
+                    </motion.div>
+                  </button>
+                  <HiX onClick={() => setToggle(false)} />
+                </div>
               </div>
               
               <ul>

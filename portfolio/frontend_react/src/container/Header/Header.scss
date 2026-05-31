@@ -6,12 +6,12 @@ $accent-light:  #a89cf5;
 $accent-glow:   rgba(124, 110, 245, 0.35);
 $cyan:          #06b6d4;
 $green:         #4ade80;
-$surface:       #13131e;
-$border:        rgba(255, 255, 255, 0.08);
-$text-muted:    rgba(255, 255, 255, 0.55);
+$surface:       var(--card-surface);
+$border:        var(--border-color);
+$text-muted:    var(--text-muted);
 
 // ─── Mixins ───────────────────────────────────
-@mixin glass($blur: 16px, $bg: rgba(255,255,255,0.04)) {
+@mixin glass($blur: 16px, $bg: var(--glass-bg)) {
   background: $bg;
   backdrop-filter: blur($blur);
   -webkit-backdrop-filter: blur($blur);
@@ -174,9 +174,10 @@ $text-muted:    rgba(255, 255, 255, 0.55);
   font-size: clamp(2.4rem, 4.5vw, 3.6rem);
   font-weight: 800;
   line-height: 1.1;
-  color: #ffffff;
+  color: var(--text-primary);
   letter-spacing: -0.03em;
   margin-bottom: 20px;
+  transition: color 0.3s ease;
 
   .gradient-text {
     background: linear-gradient(120deg, $accent 0%, $cyan 50%, $accent-light 100%);
@@ -199,12 +200,12 @@ $text-muted:    rgba(255, 255, 255, 0.55);
   .role-tag {
     font-size: 12px;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.6);
-    background-color: rgba(255, 255, 255, 0.04);
-    border: 0.5px solid $border;
+    color: var(--text-muted);
+    background-color: var(--glass-bg);
+    border: 0.5px solid var(--border-color);
     border-radius: 9999px;
     padding: 4px 13px;
-    transition: border-color 0.2s ease, color 0.2s ease;
+    transition: border-color 0.2s ease, color 0.2s ease, background-color 0.3s ease;
 
     &:hover {
       border-color: rgba($accent, 0.4);
@@ -262,12 +263,12 @@ $text-muted:    rgba(255, 255, 255, 0.55);
   }
 
   .btn-ghost {
-    @include glass(8px, rgba(255,255,255,0.04));
-    color: #ffffff;
-    border: 0.5px solid rgba(255, 255, 255, 0.2);
+    @include glass(8px, var(--glass-bg));
+    color: var(--text-primary);
+    border: 0.5px solid var(--border-color);
 
     &:hover {
-      background: rgba(255,255,255,0.07);
+      background: var(--glass-bg);
       border-color: rgba($accent, 0.45);
       box-shadow: 0 4px 18px rgba($accent, 0.18);
     }
@@ -294,9 +295,9 @@ $text-muted:    rgba(255, 255, 255, 0.55);
     gap: 4px;
     padding: 12px 14px;
     border-radius: 10px;
-    background: rgba(255,255,255,0.02);
-    border: 0.5px solid $border;
-    transition: border-color 0.25s ease, background 0.25s ease;
+    background: var(--glass-bg);
+    border: 0.5px solid var(--border-color);
+    transition: border-color 0.25s ease, background 0.25s ease, background-color 0.3s ease;
 
     &:hover {
       border-color: rgba($accent, 0.3);
@@ -306,16 +307,18 @@ $text-muted:    rgba(255, 255, 255, 0.55);
     .stat-value {
       font-size: 16px;
       font-weight: 700;
-      color: #ffffff;
+      color: var(--text-primary);
       line-height: 1.2;
+      transition: color 0.3s ease;
     }
 
     .stat-label {
       font-size: 11px;
       font-weight: 500;
-      color: rgba(255, 255, 255, 0.38);
+      color: var(--text-subtle);
       text-transform: uppercase;
       letter-spacing: 0.06em;
+      transition: color 0.3s ease;
     }
   }
 }
@@ -330,8 +333,8 @@ $text-muted:    rgba(255, 255, 255, 0.55);
 
 // Profile card — glass + gradient border
 .profile-card {
-  @include glass(20px, rgba(19, 19, 30, 0.65));
-  border: 0.5px solid rgba(255, 255, 255, 0.1);
+  @include glass(20px, var(--profile-card-bg));
+  border: 0.5px solid var(--border-color);
   border-radius: 24px;
   padding: 24px;
   width: 100%;

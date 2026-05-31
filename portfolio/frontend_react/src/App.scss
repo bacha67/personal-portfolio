@@ -87,8 +87,8 @@
     width: 36px;
     height: 36px;
     border-radius: 10px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 0.5px solid rgba(255, 255, 255, 0.08);
+    background: var(--social-icon-bg);
+    border: 0.5px solid var(--social-icon-border);
     cursor: pointer;
     transition:
       background   0.25s ease,
@@ -101,6 +101,12 @@
       border-color: rgba(124, 110, 245, 0.4);
       transform: translateY(-2px);
       box-shadow: 0 4px 16px rgba(124, 110, 245, 0.25);
+
+      body.light-theme & {
+        background: rgba(95, 79, 235, 0.12);
+        border-color: rgba(95, 79, 235, 0.35);
+        box-shadow: 0 4px 16px rgba(95, 79, 235, 0.18);
+      }
     }
 
     a {
@@ -109,12 +115,14 @@
       justify-content: center;
       width: 100%;
       height: 100%;
-      color: rgba(255, 255, 255, 0.5);
+      color: var(--social-icon-color);
       text-decoration: none;
       font-size: 15px;
       transition: color 0.2s ease;
 
-      &:hover { color: #a89cf5; }
+      &:hover {
+        color: var(--primary-accent);
+      }
     }
   }
 }
