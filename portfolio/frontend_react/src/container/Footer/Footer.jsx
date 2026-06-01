@@ -96,18 +96,18 @@ const Footer = () => {
             Let's <span className="purple-text">Connect</span>
           </h2>
           <p className="app__contact-desc">
-            I'm actively looking for full-time roles in software development, AI engineering, or ICT. If you have an opportunity or just want to talk tech — reach out.
+            I'm actively looking for full-time roles in software development, AI engineering, or ICT. If you have an opportunity or just want to talk tech reach out.
           </p>
 
           <div className="contact-cards">
             {contactCards.map((card, idx) => {
               const { Icon } = card;
               return (
-                <a 
-                  href={card.href} 
-                  target="_blank" 
-                  rel="noreferrer" 
-                  className="contact-card-item" 
+                <a
+                  href={card.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="contact-card-item"
                   key={idx}
                 >
                   <div className="contact-card-icon-box">
@@ -168,8 +168,8 @@ const Footer = () => {
             <div className="form-success-box">
               <h3 className="success-heading">Thanks for reaching out!</h3>
               <p className="success-body">Your message was sent successfully.</p>
-              <button 
-                onClick={() => setIsFormSubmitted(false)} 
+              <button
+                onClick={() => setIsFormSubmitted(false)}
                 className="success-reset-btn"
               >
                 Send another message
