@@ -71,7 +71,7 @@ const About = () => {
             <div className="about-highlight-card" key={idx}>
               <div
                 className="about-highlight-icon"
-                style={{ backgroundColor: `${ color } 1a`, color }}
+                style={{ backgroundColor: color + '1a', color }}
               >
                 <Icon />
               </div>
