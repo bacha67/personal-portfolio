@@ -1,45 +1,87 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { TiThLarge, TiCamera, TiPencil } from 'react-icons/ti';
 import { FiArrowUpRight } from 'react-icons/fi';
 import { AppWrap, MotionWrap } from '../../wrapp';
 import TiltCard from '../../component/TiltCard';
 import './Work.scss';
 
+// ── Tech-tag brand color map ─────────────────
+const TECH_COLORS = {
+  React:      { bg: 'rgba(97,219,251,0.15)',  color: '#61dbfb' },
+  'Node.js':  { bg: 'rgba(104,160,99,0.15)',  color: '#68a063' },
+  PostgreSQL: { bg: 'rgba(51,103,145,0.15)',   color: '#336791' },
+  JWT:        { bg: 'rgba(255,179,0,0.15)',    color: '#ffb300' },
+  Python:     { bg: 'rgba(55,118,171,0.15)',   color: '#3776ab' },
+  OpenCV:     { bg: 'rgba(255,100,100,0.15)',  color: '#ff6464' },
+  Flask:      { bg: 'rgba(255,255,255,0.08)',  color: 'rgba(255,255,255,0.6)' },
+  CNN:        { bg: 'rgba(124,110,245,0.15)',  color: '#a89cf5' },
+  TensorFlow: { bg: 'rgba(255,144,0,0.15)',    color: '#ff9000' },
+  NumPy:      { bg: 'rgba(77,171,207,0.15)',   color: '#4dabcf' },
+};
+
+// ── Project data ──────────────────────────────
 const works = [
   {
     title: 'Classroom Management System',
     type: 'FULL STACK',
+    category: 'fullstack',
     desc: 'PERN stack CRUD platform with auth and role-based access control',
     tags: ['React', 'Node.js', 'PostgreSQL', 'JWT'],
     liveLink: 'https://classroom-frontend-sable-kappa.vercel.app/',
     codeLink: 'https://github.com/bacha67',
     gradient: 'linear-gradient(135deg, #0f2040 0%, #1a3a6e 100%)',
-    Icon: TiThLarge,
+    screenshot: '',
     hasLive: true,
+    features: [
+      'Role-based access: Admin, Teacher, Student views',
+      'Full CRUD for classes, assignments, and users',
+      'JWT authentication with protected routes',
+      'PostgreSQL with Neon serverless DB',
+    ],
   },
   {
     title: 'Smart Attendance System',
     type: 'ML / COMPUTER VISION',
+    category: 'ml',
     desc: 'Face-recognition attendance using OpenCV and CNN. University capstone project.',
     tags: ['Python', 'OpenCV', 'Flask', 'CNN'],
     liveLink: '',
     codeLink: 'https://github.com/bacha67/Smart-Attendance-updated.git',
     gradient: 'linear-gradient(135deg, #1a1040 0%, #3d1f7a 100%)',
-    Icon: TiCamera,
+    screenshot: '',
     hasLive: false,
+    features: [
+      'Real-time face detection using OpenCV',
+      'CNN model trained on student face dataset',
+      'Automated attendance logging to database',
+      'Flask REST API backend',
+    ],
   },
   {
     title: 'Handwritten Digit Recognition',
     type: 'ML / NEURAL NETWORK',
+    category: 'ml',
     desc: 'Neural network pipeline for digit classification with image preprocessing',
     tags: ['Python', 'TensorFlow', 'NumPy'],
     liveLink: '',
     codeLink: 'https://github.com/bacha67/Hand_written_digit_recognition.git',
     gradient: 'linear-gradient(135deg, #0a2a20 0%, #0f5040 100%)',
-    Icon: TiPencil,
+    screenshot: '',
     hasLive: false,
+    features: [
+      'MNIST dataset training pipeline',
+      'Convolutional neural network architecture',
+      'Image preprocessing and normalization',
+      'Model accuracy evaluation and visualization',
+    ],
   },
+];
+
+// ── Filter categories ─────────────────────────
+const FILTERS = [
+  { key: 'all',       label: 'All' },
+  { key: 'fullstack', label: 'Full Stack' },
+  { key: 'ml',        label: 'ML' },
 ];
 
 // ── Animation variants ────────────────────────
@@ -56,68 +98,159 @@ const cardVars = {
   },
 };
 
-const Work = () => (
-  <section className="app__work-section">
-    <div className="app__work-kicker">SELECTED WORK</div>
-    <h2 className="app__work-heading head-text">
-      Projects Built to <span className="purple-text">Solve Real Problems</span>
-    </h2>
+// ── ProjectCard component ─────────────────────
+const ProjectCard = ({ work, isExpanded, onToggle }) => {
+  const { screenshot, gradient, title, type, desc, tags, features, hasLive, liveLink, codeLink } = work;
 
-    <motion.div
-      className="app__work-grid"
-      variants={gridVars}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.15 }}
-    >
-      {works.map((work) => {
-        const { Icon } = work;
-        return (
+  return (
+    <article className="app__work-card">
+      {/* ── Screenshot / placeholder header ── */}
+      <div className="app__work-card-header">
+        {screenshot ? (
+          <img
+            src={screenshot}
+            alt={`${title} screenshot`}
+            className="app__work-card-screenshot"
+          />
+        ) : (
+          <div
+            className="app__work-card-placeholder"
+            style={{ background: gradient }}
+          >
+            <span className="placeholder-label">{title}</span>
+          </div>
+        )}
+
+        {/* COMPLETED badge */}
+        <span className="status-badge">COMPLETED</span>
+
+        {/* Dark hover overlay */}
+        <div className="screenshot-overlay" />
+      </div>
+
+      {/* ── Card body ── */}
+      <div className="app__work-card-body">
+        <span className="project-type-badge">{type}</span>
+        <h3 className="project-title">{title}</h3>
+        <p className="project-desc">{desc}</p>
+
+        {/* Tech tags with brand colors */}
+        <div className="project-tech-tags">
+          {tags.map((tag) => {
+            const c = TECH_COLORS[tag] || { bg: 'rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.6)' };
+            return (
+              <span
+                className="project-tech-tag"
+                key={tag}
+                style={{ backgroundColor: c.bg, color: c.color }}
+              >
+                {tag}
+              </span>
+            );
+          })}
+        </div>
+
+        {/* Action buttons */}
+        <div className="project-actions">
+          {hasLive ? (
+            <>
+              <a href={liveLink} target="_blank" rel="noreferrer" className="btn-live">
+                Live Demo <FiArrowUpRight />
+              </a>
+              <a href={codeLink} target="_blank" rel="noreferrer" className="btn-github-ghost">
+                GitHub
+              </a>
+            </>
+          ) : (
+            <a href={codeLink} target="_blank" rel="noreferrer" className="btn-github-filled">
+              GitHub
+            </a>
+          )}
+        </div>
+
+        {/* ── Expandable details toggle ── */}
+        <button
+          className="view-details-btn"
+          aria-expanded={isExpanded}
+          onClick={onToggle}
+        >
+          {isExpanded ? 'Collapse ↑' : 'View Details →'}
+        </button>
+
+        {/* ── Expandable panel ── */}
+        <div className={`details-panel ${isExpanded ? 'details-panel--open' : ''}`}>
+          <div className="details-panel-inner">
+            <h4 className="details-heading">Key Features</h4>
+            <ul className="details-list">
+              {features.map((f, i) => (
+                <li key={i}>{f}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </article>
+  );
+};
+
+// ── Main Work section ─────────────────────────
+const Work = () => {
+  const [activeFilter, setActiveFilter] = useState('all');
+  const [expandedCards, setExpandedCards] = useState({});
+
+  const filtered = activeFilter === 'all'
+    ? works
+    : works.filter((w) => w.category === activeFilter);
+
+  const toggleExpand = (title) => {
+    setExpandedCards((prev) => ({ ...prev, [title]: !prev[title] }));
+  };
+
+  return (
+    <section className="app__work-section">
+      <div className="app__work-kicker">SELECTED WORK</div>
+      <h2 className="app__work-heading head-text">
+        Projects Built to <span className="purple-text">Solve Real Problems</span>
+      </h2>
+
+      {/* ── Filter tabs ── */}
+      <div className="app__work-filter-tabs">
+        {FILTERS.map((f) => (
+          <button
+            key={f.key}
+            className={`filter-tab ${activeFilter === f.key ? 'filter-tab--active' : ''}`}
+            onClick={() => setActiveFilter(f.key)}
+          >
+            {f.label}
+          </button>
+        ))}
+      </div>
+
+      <motion.div
+        className="app__work-grid"
+        variants={gridVars}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.15 }}
+      >
+        {filtered.map((work) => (
           <motion.div
             key={work.title}
             variants={cardVars}
             style={{ height: '100%' }}
           >
             <TiltCard>
-              <article className="app__work-card">
-                <div className="app__work-card-header" style={{ background: work.gradient }}>
-                  <Icon className="project-header-icon" />
-                </div>
-                <div className="app__work-card-body">
-                  <span className="project-type-badge">{work.type}</span>
-                  <h3 className="project-title">{work.title}</h3>
-                  <p className="project-desc">{work.desc}</p>
-
-                  <div className="project-tech-tags">
-                    {work.tags.map((tag) => (
-                      <span className="project-tech-tag" key={tag}>{tag}</span>
-                    ))}
-                  </div>
-
-                  <div className="project-actions">
-                    {work.hasLive ? (
-                      <>
-                        <a href={work.liveLink} target="_blank" rel="noreferrer" className="btn-live">
-                          Live Demo <FiArrowUpRight />
-                        </a>
-                        <a href={work.codeLink} target="_blank" rel="noreferrer" className="btn-github-ghost">
-                          GitHub
-                        </a>
-                      </>
-                    ) : (
-                      <a href={work.codeLink} target="_blank" rel="noreferrer" className="btn-github-filled">
-                        GitHub
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </article>
+              <ProjectCard
+                work={work}
+                isExpanded={!!expandedCards[work.title]}
+                onToggle={() => toggleExpand(work.title)}
+              />
             </TiltCard>
           </motion.div>
-        );
-      })}
-    </motion.div>
-  </section>
-);
+        ))}
+      </motion.div>
+    </section>
+  );
+};
 
 export default AppWrap(MotionWrap(Work, 'app__works'), 'work', '');
