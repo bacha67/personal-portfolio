@@ -7,6 +7,8 @@ $border:       var(--border-color);
 
 // ── 3D Tilt card — mouse-following spotlight ──
 .tilt-card {
+  height: 100%;
+  
   &::after {
     content: '';
     position: absolute;
@@ -24,12 +26,6 @@ $border:       var(--border-color);
   }
 
   &:hover::after { opacity: 1; }
-}
-
-// ── Keyframes ─────────────────────────────────
-@keyframes card-glow-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(124,110,245,0); }
-  50%       { box-shadow: 0 0 28px 4px rgba(124,110,245,0.18); }
 }
 
 // ── Section layout ────────────────────────────
@@ -60,50 +56,66 @@ $border:       var(--border-color);
   }
 }
 
-// ── Filter Tabs ───────────────────────────────
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// FILTER TABS — Restyled to match reference
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 .app__work-filter-tabs {
   display: inline-flex;
-  gap: 8px;
-  background: #13131e;
-  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 0.5px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
   padding: 4px;
-  border: 0.5px solid rgba(255, 255, 255, 0.08);
+  gap: 4px;
   margin-bottom: 40px;
 }
 
 .filter-tab {
-  background: transparent;
-  color: rgba(255, 255, 255, 0.45);
-  padding: 7px 18px;
-  border-radius: 7px;
-  font-size: 13px;
-  font-weight: 500;
+  padding: 8px 20px;
+  border-radius: 50px;
   border: none;
+  font-size: 13px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.5);
   font-family: var(--font-base);
   transition: background 0.2s ease, color 0.2s ease;
 
   &:hover {
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 0.8);
   }
 
   &--active {
-    background: $accent;
-    color: #fff;
+    background: white;
+    color: #0a0a0f;
+    font-weight: 600;
+
+    &:hover {
+      color: #0a0a0f;
+    }
   }
 }
 
-// ── Grid ──────────────────────────────────────
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// LAYOUT REDESIGN — Switch to 2-column grid
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 .app__work-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 28px;
   width: 100%;
+  margin-top: 40px;
 
-  @media screen and (max-width: 768px) { grid-template-columns: 1fr; }
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 }
 
-// ── Card ──────────────────────────────────────
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CARD HOVER EFFECT & BASE CARD STYLING
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 .app__work-card {
   position: relative;
   background-color: $surface;
@@ -113,34 +125,32 @@ $border:       var(--border-color);
   flex-direction: column;
   height: 100%;
   border: 1px solid rgba(255, 255, 255, 0.06);
-  transition:
-    transform    0.25s ease,
-    border-color 0.25s ease,
-    box-shadow   0.25s ease,
-    background   0.25s ease;
+  transition: all 0.25s ease;
 
   &:hover {
     transform: translateY(-4px);
-    border-color: rgba(124, 110, 245, 0.3);
-    box-shadow: 0 12px 40px rgba(124, 110, 245, 0.1);
-    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(124, 110, 245, 0.4);
+    box-shadow: 0 12px 40px rgba(124, 110, 245, 0.12);
 
-    .screenshot-overlay { opacity: 1; }
-    .project-title { color: $accent-light; }
+    .screenshot-overlay {
+      opacity: 1;
+    }
   }
 
   & > * { position: relative; z-index: 1; }
 }
 
-// ── Screenshot header ─────────────────────────
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CARD HEADER — Screenshot, Badge, and Overlay Icons
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 .app__work-card-header {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  height: 220px;
   overflow: hidden;
 }
 
-.app__work-card-screenshot {
+.app__work-card-media {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -167,93 +177,91 @@ $border:       var(--border-color);
 .screenshot-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.25);
+  background: rgba(0, 0, 0, 0.3);
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
+  z-index: 1;
 }
 
-// ── COMPLETED badge ───────────────────────────
+// COMPLETED Badge (Top-left overlay)
 .status-badge {
   position: absolute;
-  top: 12px;
-  left: 12px;
-  font-size: 11px;
-  font-weight: 600;
+  top: 10px;
+  left: 10px;
+  font-size: 10px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
   background: rgba(74, 222, 128, 0.15);
   border: 0.5px solid rgba(74, 222, 128, 0.35);
   color: #4ade80;
-  border-radius: 20px;
-  padding: 4px 12px;
+  border-radius: 4px;
+  padding: 3px 8px;
   z-index: 2;
   pointer-events: none;
-  backdrop-filter: blur(4px);
+  font-weight: 600;
+}
+
+// GitHub + External link buttons (Top-right overlay)
+.header-icon-links {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+}
+
+.header-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  border: 0.5px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 15px;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+  text-decoration: none;
+
+  &:hover {
+    background: #7c6ef5;
+    color: #fff;
+    transform: scale(1.1);
+  }
 }
 
 // ── Card body ─────────────────────────────────
 .app__work-card-body {
-  padding: 28px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
   flex: 1;
-
-  @media screen and (max-width: 480px) {
-    padding: 20px;
-  }
 }
 
-// ── Title row (title + icon links) ────────────
-.project-title-row {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 8px;
-}
-
-.project-title {
-  font-size: 20px;
+// Project type label
+.project-type-label {
+  font-size: 11px;
   font-weight: 700;
-  color: var(--text-primary);
-  line-height: 1.3;
-  transition: color 0.2s ease;
-  margin: 0;
-
-  @media screen and (max-width: 480px) {
-    font-size: 17px;
-  }
-}
-
-.project-title-links {
-  display: flex;
-  gap: 8px;
-  flex-shrink: 0;
-  padding-top: 2px;
-}
-
-.title-icon-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: rgba($accent, 0.1);
+  text-transform: uppercase;
   color: $accent-light;
-  font-size: 16px;
-  text-decoration: none;
-  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
-
-  &:hover {
-    background: rgba($accent, 0.2);
-    color: #fff;
-    transform: scale(1.08);
-  }
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+  display: block;
 }
 
-// ── Meta info ─────────────────────────────────
+// Project name
+.project-name {
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+// Year + role
 .project-meta {
   display: flex;
   align-items: center;
@@ -263,171 +271,172 @@ $border:       var(--border-color);
 
 .project-meta-item {
   font-size: 13px;
-  color: var(--text-subtle);
+  color: rgba(255, 255, 255, 0.4);
   display: flex;
   align-items: center;
   gap: 4px;
 }
 
-// ── Description ───────────────────────────────
+// Description
 .project-desc {
   font-size: 14px;
-  line-height: 1.65;
-  color: var(--text-muted);
-  margin-bottom: 24px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.55);
+  margin-bottom: 20px;
 }
 
-// ── Stats row ─────────────────────────────────
-.project-stats {
+// Stats row (Two stat boxes side by side)
+.project-stats-row {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
   margin-bottom: 24px;
 }
 
-.project-stat {
+.project-stat-box {
+  background: rgba(255, 255, 255, 0.04);
+  border: 0.5px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 12px;
   text-align: center;
 
-  .project-stat-value {
+  .stat-value {
     display: block;
     font-size: 15px;
     font-weight: 700;
-    color: $accent-light;
-    margin-bottom: 2px;
+    color: #fff;
+    margin-bottom: 4px;
   }
 
-  .project-stat-label {
+  .stat-label {
     display: block;
     font-size: 11px;
-    color: var(--text-subtle);
+    color: rgba(255, 255, 255, 0.4);
   }
 }
 
-// ── Tech tags ─────────────────────────────────
+// Technologies Used
 .project-tech-section {
   margin-bottom: 24px;
 }
 
-.project-tech-heading {
+.tech-section-label {
   display: block;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--text-muted);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.45);
   margin-bottom: 10px;
 }
 
 .project-tech-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-
-  .project-tech-tag {
-    font-size: 12px;
-    font-weight: 500;
-    border-radius: 20px;
-    padding: 4px 14px;
-    border: 0.5px solid rgba(255, 255, 255, 0.08);
-    transition:
-      transform    0.2s ease,
-      filter       0.2s ease;
-
-    &:hover {
-      transform: scale(1.06);
-      filter: brightness(1.15);
-    }
-  }
+  gap: 8px;
 }
 
-// ── View Details button ───────────────────────
+.project-tech-tag {
+  border: 0.5px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.7);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 12px;
+  background: transparent !important; // NO colored backgrounds
+  font-weight: 500;
+}
+
+// Toggle button
 .view-details-btn {
   display: block;
   width: 100%;
-  background: var(--text-primary);
-  border: none;
-  border-radius: 24px;
-  padding: 14px 0;
-  color: var(--bg-color);
+  background: rgba(255, 255, 255, 0.06);
+  border: 0.5px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  padding: 12px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   font-family: var(--font-base);
   cursor: pointer;
-  transition: background 0.25s ease, color 0.25s ease, transform 0.2s ease;
-  letter-spacing: 0.01em;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
 
   &:hover {
-    background: $accent;
+    background: rgba(255, 255, 255, 0.1);
     color: #fff;
-    transform: translateY(-1px);
+    border-color: rgba(255, 255, 255, 0.2);
   }
 
-  &[aria-expanded="true"] {
-    background: $accent;
+  &--active {
+    background: rgba(255, 255, 255, 0.12);
     color: #fff;
+    border-color: rgba(255, 255, 255, 0.25);
   }
 }
 
-// ── Expandable panel ──────────────────────────
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// EXPANDED PANEL STYLING
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 .details-panel {
   max-height: 0;
   opacity: 0;
   overflow: hidden;
-  transition:
-    max-height 0.4s ease,
-    opacity    0.35s ease;
+  transition: max-height 0.35s ease, opacity 0.35s ease;
 
   &--open {
-    max-height: 800px;
+    max-height: 600px;
     opacity: 1;
   }
 }
 
 .details-panel-inner {
-  padding-top: 24px;
+  padding-top: 20px;
 }
 
-.details-heading {
+.details-section-label {
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--text-muted);
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.4);
   margin-bottom: 12px;
 }
 
-.details-list {
+// Sub-section A: KEY FEATURES
+.details-feature-list {
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 
   li {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 2;
     position: relative;
-    font-size: 13px;
-    line-height: 1.65;
-    color: var(--text-muted);
-    padding-left: 20px;
-    margin-bottom: 8px;
+    padding-left: 16px;
 
     &::before {
-      content: '▸';
+      content: '·';
       position: absolute;
       left: 0;
-      color: $accent-light;
-      font-size: 13px;
-    }
-
-    &:last-child {
-      margin-bottom: 0;
+      font-weight: bold;
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.7);
     }
   }
 }
 
-.details-description {
-  font-size: 13px;
-  line-height: 1.75;
-  color: var(--text-muted);
-  margin: 0;
-  padding: 14px 16px;
-  background: rgba(124, 110, 245, 0.04);
-  border-left: 2px solid rgba(124, 110, 245, 0.3);
+// Sub-section B: PROJECT DETAILS
+.details-description-box {
+  background: rgba(255, 255, 255, 0.03);
+  border-left: 2px solid #7c6ef5;
+  padding: 16px;
   border-radius: 0 8px 8px 0;
+
+  p {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.8;
+    margin: 0;
+  }
 }
