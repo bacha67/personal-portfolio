@@ -399,7 +399,7 @@ $border:       var(--border-color);
     opacity    0.35s ease;
 
   &--open {
-    max-height: 500px;
+    max-height: 800px;
     opacity: 1;
   }
 }
@@ -442,4 +442,15 @@ $border:       var(--border-color);
       margin-bottom: 0;
     }
   }
+}
+
+.details-description {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin: 0;
+  padding: 12px 14px;
+  background: rgba(124, 110, 245, 0.04);
+  border-left: 2px solid rgba(124, 110, 245, 0.3);
+  border-radius: 0 6px 6px 0;
 }

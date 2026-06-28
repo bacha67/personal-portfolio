@@ -40,6 +40,16 @@ const works = [
       'JWT authentication with protected routes',
       'PostgreSQL with Neon serverless DB',
     ],
+    detailDescription:
+      'A production-ready University Management Dashboard built with the PERN stack ' +
+      '(PostgreSQL, Express, React, Node.js). The frontend is powered by Refine and shadcn/ui ' +
+      'with structured route management and dynamic data display. The backend integrates a ' +
+      'PostgreSQL schema with optimized queries and Cloudinary for media asset management. ' +
+      'Security is handled through Arcjet middleware, Better-Auth for authentication, and ' +
+      'Site24x7 for Application Performance Monitoring (APM) and Real User Monitoring (RUM). ' +
+      'The development workflow leveraged AI-assisted tools to rapidly generate CRUD pages, ' +
+      'database schemas, and complex form logic — maintaining code quality through automated ' +
+      'reviews and industry-standard Git workflows.',
   },
   {
     title: 'Smart Attendance System',
@@ -60,6 +70,18 @@ const works = [
       'Automated attendance logging to database',
       'Flask REST API backend',
     ],
+    detailDescription:
+      'Developed as a university capstone project at Madda Walabu University, this system ' +
+      'modernizes attendance tracking using AI and computer vision. It employs MTCNN for face ' +
+      'detection and InceptionResnetV1 (FaceNet) for feature extraction, achieving real-time ' +
+      'identification with an 80% confidence threshold. The model was improved through transfer ' +
+      'learning — fine-tuning pre-trained models on a custom Ethiopian student facial dataset ' +
+      'for higher accuracy under local conditions. Built with Flask (Python) on the backend and ' +
+      'React (TypeScript) on the frontend, it supports three user roles (Admin, Instructor, Student) ' +
+      'with role-based access control, JWT authentication, and comprehensive analytics. Key capabilities ' +
+      'include multi-course and multi-section session management, automated low-attendance warnings, ' +
+      'CSV/Excel report exports, and security features like SQL injection protection, XSS prevention, ' +
+      'and bcrypt password hashing.',
   },
   {
     title: 'Handwritten Digit Recognition',
@@ -78,6 +100,14 @@ const works = [
       'Image preprocessing and normalization',
       'Model accuracy evaluation and visualization',
     ],
+    detailDescription:
+      'A deep learning project that classifies handwritten digits (0–9) using a Convolutional ' +
+      'Neural Network trained on the MNIST dataset of 70,000 grayscale images. The pipeline includes ' +
+      'image preprocessing with normalization and reshaping, a CNN architecture with convolutional, ' +
+      'pooling, dropout, and dense layers, and a training loop with validation accuracy tracking. ' +
+      'Built with TensorFlow/Keras and NumPy, the model achieves high classification accuracy and ' +
+      'includes visualization of training metrics, confusion matrices, and sample predictions to ' +
+      'evaluate performance across all digit classes.',
   },
 ];
 
@@ -104,7 +134,7 @@ const cardVars = {
 
 // ── ProjectCard component ─────────────────────
 const ProjectCard = ({ work, isExpanded, onToggle }) => {
-  const { screenshot, video, gradient, title, type, desc, tags, features, hasLive, liveLink, codeLink } = work;
+  const { screenshot, video, gradient, title, type, desc, tags, features, detailDescription, hasLive, liveLink, codeLink } = work;
 
   return (
     <article className="app__work-card">
@@ -200,6 +230,13 @@ const ProjectCard = ({ work, isExpanded, onToggle }) => {
                 <li key={i}>{f}</li>
               ))}
             </ul>
+
+            {detailDescription && (
+              <>
+                <h4 className="details-heading" style={{ marginTop: '20px' }}>Project Details</h4>
+                <p className="details-description">{detailDescription}</p>
+              </>
+            )}
           </div>
         </div>
       </div>
