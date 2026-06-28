@@ -5,23 +5,6 @@ import { AppWrap, MotionWrap } from '../../wrapp';
 import TiltCard from '../../component/TiltCard';
 import './Work.scss';
 
-// ── Tech-tag brand color map ─────────────────
-const TECH_COLORS = {
-  React:              { bg: 'rgba(97,219,251,0.15)',  color: '#61dbfb' },
-  'Node.js':          { bg: 'rgba(104,160,99,0.15)',  color: '#68a063' },
-  Express:            { bg: 'rgba(255,255,255,0.08)',  color: 'rgba(255,255,255,0.7)' },
-  PostgreSQL:         { bg: 'rgba(51,103,145,0.15)',   color: '#336791' },
-  JWT:                { bg: 'rgba(255,179,0,0.15)',    color: '#ffb300' },
-  Python:             { bg: 'rgba(55,118,171,0.15)',   color: '#3776ab' },
-  OpenCV:             { bg: 'rgba(255,100,100,0.15)',  color: '#ff6464' },
-  Flask:              { bg: 'rgba(255,255,255,0.08)',  color: 'rgba(255,255,255,0.7)' },
-  CNN:                { bg: 'rgba(124,110,245,0.15)',  color: '#a89cf5' },
-  FaceNet:            { bg: 'rgba(124,110,245,0.15)',  color: '#a89cf5' },
-  TensorFlow:         { bg: 'rgba(255,144,0,0.15)',    color: '#ff9000' },
-  NumPy:              { bg: 'rgba(77,171,207,0.15)',   color: '#4dabcf' },
-  Keras:              { bg: 'rgba(210,45,45,0.15)',    color: '#d12d2d' },
-  'Image Processing': { bg: 'rgba(124,110,245,0.1)',   color: '#a89cf5' },
-};
 
 // ── Project data (exact content from prompt) ──
 const works = [
