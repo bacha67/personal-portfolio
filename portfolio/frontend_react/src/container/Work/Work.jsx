@@ -30,7 +30,9 @@ const works = [
     liveLink: 'https://classroom-frontend-sable-kappa.vercel.app/',
     codeLink: 'https://github.com/bacha67',
     gradient: 'linear-gradient(135deg, #0f2040 0%, #1a3a6e 100%)',
-    screenshot: '',
+    screenshot: '/images/ClassRoom.png',
+    screenshots: ['/images/ClassRoom.png', '/images/ClassRoom2.png'],
+    video: '',
     hasLive: true,
     features: [
       'Role-based access: Admin, Teacher, Student views',
@@ -48,7 +50,9 @@ const works = [
     liveLink: '',
     codeLink: 'https://github.com/bacha67/Smart-Attendance-updated.git',
     gradient: 'linear-gradient(135deg, #1a1040 0%, #3d1f7a 100%)',
-    screenshot: '',
+    screenshot: '/images/attendance.jpg',
+    screenshots: ['/images/attendance.jpg'],
+    video: '/images/attendace_video.mp4',
     hasLive: false,
     features: [
       'Real-time face detection using OpenCV',
@@ -100,13 +104,23 @@ const cardVars = {
 
 // ── ProjectCard component ─────────────────────
 const ProjectCard = ({ work, isExpanded, onToggle }) => {
-  const { screenshot, gradient, title, type, desc, tags, features, hasLive, liveLink, codeLink } = work;
+  const { screenshot, video, gradient, title, type, desc, tags, features, hasLive, liveLink, codeLink } = work;
 
   return (
     <article className="app__work-card">
-      {/* ── Screenshot / placeholder header ── */}
+      {/* ── Screenshot / Video / Placeholder header ── */}
       <div className="app__work-card-header">
-        {screenshot ? (
+        {video ? (
+          <video
+            src={video}
+            className="app__work-card-screenshot"
+            muted
+            autoPlay
+            loop
+            playsInline
+            poster={screenshot}
+          />
+        ) : screenshot ? (
           <img
             src={screenshot}
             alt={`${title} screenshot`}
