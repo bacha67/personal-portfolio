@@ -98,13 +98,45 @@ const works = [
       'with high accuracy. The pipeline covers data loading, preprocessing, model training with ' +
       'TensorFlow/Keras, evaluation, and result visualization using NumPy and Matplotlib.',
   },
+  {
+    cardId: 'ai-resume-analyzer',
+    title: 'AI Resume Analyzer',
+    type: 'AI / SERVERLESS',
+    category: 'ml',
+    year: '2026',
+    role: 'Solo project',
+    desc: 'Serverless web app that parses PDF resumes using PDF.js and analyzes them visually with GPT-4o-mini via Puter AI — returning ATS scores, tone, structure, and content feedback.',
+    tags: ['React 19', 'TypeScript', 'Puter.js', 'PDF.js', 'GPT-4o-mini', 'Netlify'],
+    liveLink: 'https://ai-resume-analyzer-app.netlify.app/',
+    codeLink: 'https://github.com/bacha67/Ai-resume-Analyzer',
+    gradient: 'linear-gradient(135deg, #0a1628 0%, #1a0a3e 100%)',
+    screenshot: '',
+    video: '/images/ResumeAnalyzer.mp4',
+    hasLive: true,
+    stats: [
+      { value: '20x', label: 'Payload reduction' },
+      { value: 'GPT-4o', label: 'Vision model' },
+    ],
+    features: [
+      'Vision-based AI reviews resume layout and content',
+      'ATS alignment scoring against job descriptions',
+      'PDF.js converts PDFs to JPEG client-side (20x smaller)',
+      'Fully serverless — Puter.js handles auth, storage, and AI',
+      'Animated score dials and skeleton loaders',
+    ],
+    detailDescription:
+      'A completely serverless AI resume analyzer built with React 19 and TypeScript. ' +
+      'Uses PDF.js to convert uploaded resumes to lightweight JPEGs client-side, ' +
+      'reducing AI payload by 20x. GPT-4o-mini via Puter AI visually reviews the resume ' +
+      'and returns structured JSON feedback on tone, structure, content, and ATS alignment.',
+  },
 ];
 
 // ── Filter categories ─────────────────────────
 const FILTERS = [
-  { key: 'all',       label: 'All Projects' },
+  { key: 'all', label: 'All Projects' },
   { key: 'fullstack', label: 'Full Stack' },
-  { key: 'ml',        label: 'AI/ML' },
+  { key: 'ml', label: 'AI/ML' },
 ];
 
 // ── Animation variants ────────────────────────
@@ -265,7 +297,7 @@ const Work = () => {
     ? works
     : activeFilter === 'fullstack'
       ? works.filter((w) => w.type === 'FULL STACK')
-      : works.filter((w) => w.type.includes('ML'));
+      : works.filter((w) => w.type.includes('ML') || w.type.includes('AI'));
 
   const handleToggle = (cardId) => {
     setExpandedCard(expandedCard === cardId ? null : cardId);
