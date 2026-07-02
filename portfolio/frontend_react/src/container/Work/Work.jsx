@@ -130,13 +130,47 @@ const works = [
       'reducing AI payload by 20x. GPT-4o-mini via Puter AI visually reviews the resume ' +
       'and returns structured JSON feedback on tone, structure, content, and ATS alignment.',
   },
+  {
+    cardId: 'airdrop-beacon',
+    title: 'Airdrop Beacon Portal',
+    type: 'WEB3 / DASHBOARD',
+    category: 'web3',
+    year: '2026',
+    role: 'Solo project',
+    desc: 'A Web3 airdrop tracking dashboard that aggregates live on-chain airdrop opportunities, eligibility criteria, and reward timelines — all in one sleek, real-time interface.',
+    tags: ['React', 'TypeScript', 'Web3.js', 'Netlify', 'REST APIs'],
+    liveLink: 'https://soft-jalebi-1e9357.netlify.app/',
+    codeLink: 'https://github.com/bacha67',
+    gradient: 'linear-gradient(135deg, #021a12 0%, #003d2e 50%, #004d40 100%)',
+    screenshot: '/images/airdrop_dashboard.png',
+    video: '',
+    hasLive: true,
+    stats: [
+      { value: 'Live', label: 'On-chain data' },
+      { value: 'Web3', label: 'Dashboard' },
+    ],
+    features: [
+      'Aggregates airdrop opportunities from multiple chains',
+      'Eligibility checker — know if your wallet qualifies',
+      'Countdown timers for claim deadlines and TGE dates',
+      'Filter by chain, status (upcoming / active / ended)',
+      'Clean card-based UI with real-time data refresh',
+    ],
+    detailDescription:
+      'Airdrop Beacon Portal is a Web3 dashboard built to help crypto users discover, ' +
+      'track, and claim airdrop rewards without missing deadlines. It aggregates on-chain ' +
+      'and off-chain airdrop data across multiple networks, surfaces eligibility criteria, ' +
+      'and displays live countdown timers for claim windows and token generation events (TGE). ' +
+      'Deployed on Netlify with a fully serverless architecture.',
+  },
 ];
 
 // ── Filter categories ─────────────────────────
 const FILTERS = [
-  { key: 'all', label: 'All Projects' },
+  { key: 'all',       label: 'All Projects' },
   { key: 'fullstack', label: 'Full Stack' },
-  { key: 'ml', label: 'AI/ML' },
+  { key: 'ml',        label: 'AI/ML' },
+  { key: 'web3',      label: 'Web3' },
 ];
 
 // ── Animation variants ────────────────────────
@@ -297,7 +331,9 @@ const Work = () => {
     ? works
     : activeFilter === 'fullstack'
       ? works.filter((w) => w.type === 'FULL STACK')
-      : works.filter((w) => w.type.includes('ML') || w.type.includes('AI'));
+      : activeFilter === 'web3'
+        ? works.filter((w) => w.category === 'web3')
+        : works.filter((w) => w.type.includes('ML') || w.type.includes('AI'));
 
   const handleToggle = (cardId) => {
     setExpandedCard(expandedCard === cardId ? null : cardId);
