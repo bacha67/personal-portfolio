@@ -105,7 +105,7 @@ const works = [
     category: 'ml',
     year: '2026',
     role: 'Solo project',
-    desc: 'Serverless web app that parses PDF resumes using PDF.js and analyzes them visually with GPT-4o-mini via Puter AI — returning ATS scores, tone, structure, and content feedback.',
+    desc: 'Serverless web app that parses PDF resumes using PDF.js and analyzes them visually with GPT-4o-mini via Puter AI  returning ATS scores, tone, structure, and content feedback.',
     tags: ['React 19', 'TypeScript', 'Puter.js', 'PDF.js', 'GPT-4o-mini', 'Netlify'],
     liveLink: 'https://ai-resume-analyzer-app.netlify.app/',
     codeLink: 'https://github.com/bacha67/Ai-resume-Analyzer',
@@ -121,7 +121,7 @@ const works = [
       'Vision-based AI reviews resume layout and content',
       'ATS alignment scoring against job descriptions',
       'PDF.js converts PDFs to JPEG client-side (20x smaller)',
-      'Fully serverless — Puter.js handles auth, storage, and AI',
+      'Fully serverless  Puter.js handles auth, storage, and AI',
       'Animated score dials and skeleton loaders',
     ],
     detailDescription:
@@ -137,7 +137,7 @@ const works = [
     category: 'web3',
     year: '2026',
     role: 'Solo project',
-    desc: 'A Web3 airdrop tracking dashboard that aggregates live on-chain airdrop opportunities, eligibility criteria, and reward timelines — all in one sleek, real-time interface.',
+    desc: 'A Web3 airdrop tracking dashboard that aggregates live on-chain airdrop opportunities, eligibility criteria, and reward timelines  all in one sleek, real-time interface.',
     tags: ['React', 'TypeScript', 'Web3.js', 'Netlify', 'REST APIs'],
     liveLink: 'https://soft-jalebi-1e9357.netlify.app/',
     codeLink: 'https://github.com/bacha67',
@@ -151,7 +151,7 @@ const works = [
     ],
     features: [
       'Aggregates airdrop opportunities from multiple chains',
-      'Eligibility checker — know if your wallet qualifies',
+      'Eligibility checker  know if your wallet qualifies',
       'Countdown timers for claim deadlines and TGE dates',
       'Filter by chain, status (upcoming / active / ended)',
       'Clean card-based UI with real-time data refresh',
@@ -167,10 +167,10 @@ const works = [
 
 // ── Filter categories ─────────────────────────
 const FILTERS = [
-  { key: 'all',       label: 'All Projects' },
+  { key: 'all', label: 'All Projects' },
   { key: 'fullstack', label: 'Full Stack' },
-  { key: 'ml',        label: 'AI/ML' },
-  { key: 'web3',      label: 'Web3' },
+  { key: 'ml', label: 'AI/ML' },
+  { key: 'web3', label: 'Web3' },
 ];
 
 // ── Animation variants ────────────────────────
