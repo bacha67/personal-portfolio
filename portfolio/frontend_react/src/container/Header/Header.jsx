@@ -1,7 +1,6 @@
 import React, { useRef, useCallback } from 'react';
 import { FiZap } from 'react-icons/fi';
 import { AppWrap } from '../../wrapp';
-import { images } from '../../constants';
 import './Header.scss';
 
 const stats = [
@@ -84,7 +83,15 @@ const Header = () => {
         {/* Glow ring around image */}
         <div className="profile-img-ring">
           <div className="profile-img-container">
-            <img src={images.profile} alt="Bacha Eshetu" />
+            <video
+              src="/aboutMe.mp4"
+              title="Bacha Eshetu AI Avatar"
+              autoPlay
+              loop
+              muted
+              playsInline
+              controls
+            />
           </div>
         </div>
 

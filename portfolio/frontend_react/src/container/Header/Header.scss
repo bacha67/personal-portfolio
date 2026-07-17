@@ -375,7 +375,7 @@ $text-muted:    var(--text-muted);
   border-radius: 15px;
   overflow: hidden;
 
-  img {
+  img, video {
     width: 100%;
     height: 100%;
     object-fit: cover;
